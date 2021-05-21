@@ -5,6 +5,7 @@
 
 const Discord = require('discord.js');
 const fs = require("fs");
+const mysql = require("mysql");
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -58,10 +59,29 @@ client.on("ready", () => {
     }, 5000);
 });
 
+function generateXp() {
+    let min = 20;
+    let max = 30;
+    return Math.floor(Math.random() * (max-min+1)) + min;
+}
+
 client.on("message", async message => {
     if(message.author.bot) return; //Prevents bots from sending messages.
     if(message.channel.type === "dm") return; //Prevents users from direct messaging the bot.
 
+    con.query(`SELECT * FROM xp WHERE id = ${message.author.id}`, (error, rows)=>{
+        if(error) throw error;
+        
+        if(rows.length < 1){
+            sql = `INSERT INTO xp (id, xp) VALUES ('${message.author.id}',${generateXp()})`;
+        } else {
+            let xp = rows[0].xp;
+            sql = `UPDATE xp SET xp = ${xp + generateXp()} WHERE id = '${message.author.id}'`;
+
+        }
+        con.query(sql);
+        console.log(rows);
+    });
     let messageArray = message.content.split(" ");
     let command = messageArray[0].toLowerCase();
     let args = messageArray.slice(1);
@@ -71,8 +91,19 @@ client.on("message", async message => {
    
     if(client.commands.has(filename)){
         let cmd = client.commands.get(filename);
-        cmd.run(client, message, args);
+        cmd.run(client, message, args, con);
     };
 });
 
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "1234",
+    database: "sadb"
+});
 
+con.connect(error => {
+    if(error) throw error;
+    console.log("Database connected!");
+    con.query("SHOW TABLES", console.log);
+});
