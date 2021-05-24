@@ -1,8 +1,7 @@
 //Name: mute.js
 //Project: Buddy Bot
 //Author: Case Hassak
-//Version: 1.0
-//Description : Used to mute a user in a discord server. Can mute a user or mute a user for a given time.
+//Description: Used to mute a user in a discord server. Can mute a user or mute a user for a given time.
 
 const fs = require("fs");
 

@@ -1,0 +1,10 @@
+CREATE TABLE users (
+	id VARCHAR(32) PRIMARY KEY NOT NULL,
+  	username VARCHAR(32) NOT NULL,
+  	userNum INT NOT NULL,
+	nickname VARCHAR(32),
+	joined DATE NOT NULL,
+	birthday VARCHAR(32),
+	xp INT NOT NULL,
+	money INT NOT NULL
+);
