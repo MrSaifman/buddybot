@@ -1,8 +1,7 @@
 //Name: unmute.js
 //Project: Buddy Bot
 //Author: Case Hassak
-//Version: 1.0
-//Description : Used to unmute a user and remove them from the json file if they are on it.
+//Description: Used to unmute a user and remove them from the json file if they are on it.
 
 const fs = require("fs");
 

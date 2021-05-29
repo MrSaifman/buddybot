@@ -1,8 +1,7 @@
 //Name: purge.js
 //Project: Buddy Bot
 //Author: Case Hassak
-//Version: 1.0
-//Description : Used to remove a given number of messages from a channel.
+//Description: Used to remove a given number of messages from a channel.
 
 module.exports.run = async (client, message, args) => {
   if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You do not have permission to purge!"); //Makes sure user has permission to mute.
